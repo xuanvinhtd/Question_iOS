@@ -1,0 +1,531 @@
+Review iOS Training Questions
+1. Distinguish  :  viewDidLoad, viewDidUnload, viewWillAppear, viewDidAppear, viewWillDisappear, viewDidDisappear ?
+-> viewDidLoad: called when the controller’s view is loaded into memory. When the view don’t exist. viewDidLoad will call, and call only once in lifecycle of the view.
+-> viewDidUnload: called when your app receives low memory warning, property view release and set to nil
+-> viewWillAppear: called before the view is about to be added to a view hierarchy and before any animations are configure for showing the view.
+-> viewDidAppear: called when the view was added to a view hierarch and be about to visible on screen.
+-> viewWillDisappear: called when the view is about to be removed from a view hierarchy and animations are configured.
+-> viewDidDisappear: called when the view was removed from a view hierarchy. 
+————————————————————————————
+2. When application turns to background mode (press Home), and when app turns to foreground and which functions handle this?
+-> When applications turns to background mode: method applicationDidEnterBackground was called. This method notify that your app is now running in background and may be suspended any time.
+-> When applications turns to foreground mode: method applicationDidBecomeActive was called. This method notify that it is about to become the foreground app.
+————————————————————————————
+3. What is the App Bundle? What’s the difference between an “app ID” and a “bundle ID” and what is each used for?
+-> A bundle is a directory with a standardized hierarchical structure that holds executable code and the resources used by that code.
+
+-> App bundle are groups to 10 apps sold together with reduced price. App bundles can be purchased with a single tap and the individual apps will appear on the customer’s device.
+-> Bundle ID is string used to identify a single app in Xcode. App ID use as part of a provisioning profile. It can found in the Apple developer center. App ID use to specify apps are authorized to be signed and launched.
+————————————————————————————
+4. What are the parts of architecture of iOS ?
+-> The architecture of iOS contain 4 layer:
+- Cocoa touch: contain frameworks for building iOS app
+- Media: contains graphics, audio and video technologies, you to use implement multimedia in your apps.
+- Core Service: contains fundamental system services for apps. 2 framework popular is CoreFoundation and Foundation frameworks. This layer contains technologies support features such as location, iCloud, social media and Networking.
+- Core OS: contains the low-level features, help you deal with security or communicating with hardware, interact with Bluetooth.
+————————————————————————————
+5. What is the Single Inheritance of Objective C ?
+-> The class can have only one base class but allow multilevel inheritance. Multi derived class can inherit one base class.
+————————————————————————————
+6. What is Fast Enumeration ?
+-> Fast Enumeration is feature in Objective-C help in enumerating through a collection. Some collection such as NSSet, NSArray, NSDictionary, NSMutableSet, NSMutableArray, NSMutableDictionary.
+-> Fast enumeration Syntax:
+for (classType variable in CollectionObject) {
+	//some code.
+}
+-> Example:
+NSArray *array = [[[NSArray alloc] alloc] initWithObjects: @“Luu”, @“Duy”]
+for (NSString *str in array){
+	NSLog(@“String: %@”, str);	
+} 
+————————————————————————————
+7. Differ of Frame and Bound ?
+-> Both Bound and frame of UIView are the rectangle, contain location(x, y) and size(width, height). But the location of Bound relative to the view itself. Location of frame is the position of the view within the parent view.
+————————————————————————————
+8. what is the  @dynamic and its meaning ?
+->@dynamic just tells the compiler that the getter and setter methods are implemented not by the class itself but somewhere else (like the superclass or will be provided at runtime)
+————————————————————————————
+9. What happens when run this ?
+Ball *ball = [[[[Ball alloc] init] autorelease] autorelease];
+-> Error: pointer being freed was not allocated. The first time autorelease was called retain count decrement 1. Now pointer was freed and retain count equal 0. So when call autorelease second time, appear error.
+————————————————————————————
+10. What happens when call autorelease  ?
+-> When call autorelease to an object, it’s retain count is decremented by 1. The object is added to an autorelease pool. At the end of function, autorelease pool drain pool, release all objects called autorelease.
+————————————————————————————
+11. The meaning of @synthesize ?
+-> @synthesize will generate getter and setter methods for your property. 
+————————————————————————————
+12. What is the size of package which send to Apple Push Notification Server?
+-> The size of package which send to Apple Push Notification Server is 256 bytes.
+————————————————————————————
+13. What is the differences of shallow copy and deep copy ?
+-> In a shallow copy, object B points to object A’s location in memory. In deep copy, all things in object A’s memory location get copied to object B’s memory location.
+————————————————————————————
+14. How many states of iOS life cycle and what are they ?
+-> There are 5 state in iOS life cycle:
+- NOT RUNNING: When the app in Not running state, either the app has not been launched or the system was shut down.
+- INACTIVE: The app is running in the foreground but not receiving events. An app usually stay in this state only briefly as it transitions to a difference state such as when the app start, when the app transitions to background state.
+- ACTIVE: The app is running in the foreground and is receiving events. 
+- BACKGROUND: When the app in the Background state, it’s user interface is not visible, but it is running. Most app transition through this state before transition to suspended state.
+- SUSPENDED: When the app in the Suspended state, the app is in background but it not running code. When a low-memory condition occurs, the system may kill app without notice to make more space for the foreground app.
+————————————————————————————
+15. How to destroy an outlet object?
+-> To destroy an outlet object, we have to delete referencing outlets in property navigation, delete outlet in storyboard and delete variable define outlet in class manage View contain the outlet.
+————————————————————————————
+16.What is KVO, KVC in objective C ?
+->Key-value coding and key-value observing are two formalized mechanisms that allow us to simplify our code by harnessing the dynamic and introspective properties of the Objective-C language
+-> Key-value coding is a mechanism for accessing an object’s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variables.
+-> Key-value observing provides a mechanism that allows objects to be notified of changes to specific properties of other objects. It is particularly useful for communication between model and controller layers in an application
+————————————————————————————
+17.Differences of Instancetype and Id?
+-> id get essentially no type checking at all. With instancetype, the compiler and IDE know what type of thing is being returned, and can check your code better and autocomplete better.
+————————————————————————————
+18.What is the #import, pre-processor and its meaning?
+-> The #import statement is a pre-processor directive that works in a similar #include in C. The only difference is that #import doesn’t re-import headers that have already imported.
+- When the pre-processor meets a #import directive, It replace the single line with the entire contents of the header file being imported.
+————————————————————————————
+19.Differences of Method Calling - obj.doThis() and Message Sending - [obj  doThis]
+-> Objective C based on a message passing model. It same as calling method like in many other programming languages, but it have some difference. 
+- Message sending is any message can be sent to any object. The object whether handle or not. If it doesn’t handle the message, the nothing bad will happen. It will just return nil to the sender.
+- With method calling, if a method is called on a object that doesn’t define the method, compile or runtime will stop and error.
+————————————————————————————
+20.Does iOS support multitasking? What is Multitasking and how to use it in iOS?
+-> Multitasking is only supported on the iPhone 3GS and later devices running iOS 4.0 or newer. Multitasking lets people view more than one app onscreen and to switch quickly among recently used apps and allow app running some activities in background state.
+- To enable multitasking: select the application target at the top of project navigator panel, select the Capabilities tab and switch the Background Modes to ON.
+————————————————————————————
+21.What is Retain Cycles and the problems it can cause?
+-> Retain Cycle occurs when two difference objects contain a strong reference to each other.
+-> Retain cycles can be potentially dangerous for App, leading to memory leak, bad performance and crashes.
+————————————————————————————
+22.What is coredata, how to integrate it in to ios Project?
+-> CoreData is the framework inheritance from Sqlite database enabling the developer to work with data in project iOS without knowledge of the database.
+-> To integrate Coredata to iOS project:
+- First, when create project click chose option “Use Core Data”.
+- Then, create new Entity, click on the Add Entity button.
+- Finally, In the Attribute pane, set name attribute and type of attribute.  
+————————————————————————————
+23.What is ARC, non-ARC?
+-> ARC is Automatic Reference Counting. This is way to Objective-C manage memory auto in process compiler.
+-> With non-ARC, programmer directly manage memory, use retain, release, autorelease.
+- “ARC does not change how memory management works -  it only changes what you do as a programmer.” 
+
+————————————————————————————
+24.What is memory leak?
+-> A memory leak is process loss of available computer memory when a program (an application or part of the operating system) repeatedly fails to return memory that it has obtained for temporary use
+————————————————————————————
+25.Which tool can you use to handle memory leak? Explain your process for tracing and fixing a memory leak.
+-> Xcode Instrument
+-> tracing and fixing a memory leak
+- Open the Xcode Instrument, choose Leak
+- Choose your app in toolbar
+- Click record button
+- click stop when display leak
+- click any leaked object in Detail pane
+- In Extended Detail inspector, double click an instruction from your code
+- Click Xcode icon to open that code in xcode
+————————————————————————————
+26.What is NSThread, GCD, NSOperation and the advantages/disadvantages of each?
+-> NSThread create sub thread, control a thread of execution. 
+-> GCD (Grand Central Dispatch) support for concurrent code execution or multicore hardware on iOS.
+- GCD can improve your app’s responsiveness by helping you defer computationally expensive task and run it in background.
+- GCD provide an easier concurrency model than locks and thread. avoid concurrency bugs.
+- GCD can help you optimize code.
+-> NSOperation/NSOperationQueue similar GCD but GCD lower-level than NSOperation. major advantage of GCD is it implementation is very light-weight and focused on lock-free algorithms and performance.
+NSOperation have non-trivial cost, the implementation is complex and heavy-weight
+————————————————————————————
+27. What are “strong” and “weak” references? Why are they important and how can they be used to help control memory management and avoid memory leaks?
+-> There are two types of pointer: strong and weak.
+- Strong pointer is owners, that keep objects alive.
+- Weak pointer is not owners and do not keep objects alive.
+————————————————————————————
+28.What is the difference between atomic and nonatomic properties? Which is the default for synthesized properties? When would you use one vs. the other?
+-> atomic: ensure that whole values is always returned from the getter or set from the setter, regardless of setter activity on any other thread. non-atomic no guarantee that.
+-> The default of synthesized: @synthesized propertyName = _propertyName
+
+————————————————————————————
+29.Consider the following UITableViewCell constructor:
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+What is the purpose of the reuseIdentifier? What is the advantage of setting it to a non-nil value?
+-> reuseIdentifier help you reuse Object UITableViewCell. You only create 1 prototype cell, but you can reuse to create many cell similar.
+————————————————————————————
+30.What are different ways that you can specify the layout of elements in a UIView?
+-> 2 way:
+- programmatically by code.
+- Interface builder iOS (storyboard, xib)
+————————————————————————————
+31.Which JSON framework is supported by iOS?
+->  SBJSON framework, NSJSONSerialization class
+————————————————————————————
+32.What are the tools required to develop iOS applications? 
+-> Intel-based Macintosh computer and iOS SDK
+————————————————————————————
+33.Name the framework that is used to construct application’s user interface for iOS. 
+-> UIKit
+————————————————————————————
+34.Name the application thread from where UIKit classes should be used? 
+-> main thread
+————————————————————————————
+35.Why an app on iOS device behaves differently when running in foreground than in background? 
+-> because limit of resources on iOS devices.
+————————————————————————————
+36.Which framework delivers event to custom object when app is in foreground? 
+-> UIKit
+————————————————————————————
+37.When an app is said to be in not running state?
+-> it is not launched.
+-> terminated by the system during running.
+————————————————————————————
+38.Assume that your app is running in the foreground but is currently not receiving events.
+ In which state it would be in? 
+-> Inactive
+————————————————————————————
+39.Give example scenarios when an application goes into InActive state? 
+-> incoming call.
+-> lock screen. 
+————————————————————————————
+40.An app is loaded into memory but is not executing any code. In which state will it be in? 
+-> Suspend state.
+————————————————————————————
+41.Assume that system is running low on memory. What can system do for suspended apps? 
+-> in case low on memory system will kill suspended apps without notice.
+————————————————————————————
+42.What is the use of controller object UIApplication?
+-> The UIApplication objects is used without subclassing to manages the application event loop. It coordinates other high-level app behaviors. It work along with the app delegate object which contain app-level logic.
+————————————————————————————
+43.Which object is create by UIApplicationMain function at app launch time?
+-> The app delegate object is created by UIApplicationMain function at app launch time. The app delegate object’s main job is handle state transitions within the app.
+————————————————————————————
+44.Which is the super class of all view controller objects?
+-> UIViewController
+————————————————————————————
+45.What is the purpose of UIWindow object?
+-> UIWindow object coordinates the presentation of one or more views on a screen. 
+————————————————————————————
+46.What happens when you invoke a method on a nil pointer? 
+-> It will not crash or report error. Because Objective use Sending message.
+————————————————————————————
+47.Explain how an autorelease pool works at the runtime level.
+-> Every time -autorelease is sent to an object, it is added to autorelease pool. When the pool drained, it sends -release to all the objects in the pools.
+————————————————————————————
+48.Is a delegate retained?
+-> No. Because delegate retained cause retain cycle.
+————————————————————————————
+49.Explain how the push notification works?
+-> The push notification overview:
+- An app enables push notifications. The user has to confirm the he wishes to receive these notifications.
+- The app receives the device token.(device token as the address the push notifications will be sent to).
+- when somethings happen in your app, the server sends a push notification to the APNS (Apple Push Notifications Service).
+- APNS sends the push notification to the user’s device.
+————————————————————————————
+50.Explain the steps involved in submitting the App to App-Store.
+-> 1) Is your app is ready?
+#Step1: TESTING: tested your app in physical device, memory leaks and performance. Does your app crash from time to time? Test in multi device…
+#step2: Rules and Guidelines: Read at iOS Human Interface Guidelines and AppStore Review Guidelines. Example..:
+- doesn’t crash
+- shouldn’t use private API’s
+- should use In App Purchase for in-app transactions.
+- should’n use the camera or microphone without the user’s knowledge.
+- only uses artwork that you have copyright of or you have permission to use…
+2) Prerequisites (Dieu kien tien quyet)
+#step1: App ID: two type: explicit App ID (if your app uses iCloud or some feature such as: Game Center, Apple Push Notifications, In-app purchase) and wildcard App ID.
+#step2: Distribution Certificate: To submit app to App Store, you need create an iOS provisioning profile for distribution. To create provisioning profile, you first need create a distribution certificate.
+#step3: Provisioning Profile: provisioning profile is unique.
+#step4: Build settings: with the App ID, distribution certificate, and provisioning profile, it is time to configure your target’s build setting in Xcode. 
+- Select target from list target in Project navigator.
+- Open Build Settings, update the settings in the Code Signing section.
+#step5: Deployment Target: Each target in an Xcode project, has a deployment target, which indicates the minimum version of the operating system the the app can run on.
+3) Assets.
+#step1: icons: you need make sure that your app ships with the correct size.
+#step2: Screenshots: Each app can have up to five screenshots and you must provide at least one.
+#step3: Metadata includes: (1) your app’s name, (2) the version number, (3) the primary category, (4) a concise description, (5) keywords, and (6) a support URL.If you submitting an update, then you can also provide information for the What’s new in this Version section.
+4) Submission preparation.
+First, you need create your app in iTunes Connect.
+#step1: Basic Information.
+- App Name, which needs to be unique, is the name of your app as it will appear in the App Store. 
+- SKU Number: is a unique string that identifies your app, normal you should use the application’s bundle identifies.
+- Bundle ID: This means selecting the AppID that you created earlier from the drop down menu.
+#step2: Price and Availability: In the next step, you specify your app’s price and availability.
+#step3: Metadata
+#step4: Ready to Upload Binary
+5) Uploading Binary
+To submit your app, you need to create an archive of your app. You can only create an archive by building your app on a physical device.
+If all went well, you should now have an archive and Xcode’s Organizer should automatically open and show you the archive you just created. Select the archive from the list and click Distribute. -> Submit to the iOS App Store -> Login to iTunes Connect -> Choose an application record and an identify
+6) Waiting.
+If the submission process wen without problems, your application’s status will change to Waiting for Review. It takes several days for Apple to review your app.
+————————————————————————————
+51.Why do we need to use @Synthesize? — More detail.
+-> It generates the getter/setter if you have not write.
+————————————————————————————
+52.What is code signing?
+-> Code signing your app assure users that it is from a known source and the app hasn’t been modified since it was last signed.
+p/s: Before your app can integrate app services, be installed on a device, or be submitted to the App Store, it must be signed with a certificate issued by Apple.
+————————————————————————————
+53.Can you just explain about memory management in iOS?
+-> Memory management is process of allocating memory during your program’s runtime, using it and freed it when you are done with it.
+-> Objective-C provides two methods of application Memory Management.
+(1) MRR (Manual retain-release): 
+- alloc
+- copy
+- retain
+- release
+- autorelease
+(2) ARC (Automatic Retain Counting)
+- alloc
+- copy
+————————————————————————————
+54.How would you create your own custom view?
+-> Use file.xib or create view programmatically by code.
+————————————————————————————
+55.Whats a struct?
+->Struct is data type, which allows you to combine data times of different kinds.
+————————————————————————————
+56.Whats the difference between  NSArray and  NSMutableArray?
+-> NSMutableArray you can modify. With NSArray you can’t changes it content later. 
+————————————————————————————
+57.Whats the NSCoder class used for?
+-> The NSCoder abstract class declares the interface used by concrete subclasses to transfer object and other values between memory and some other format.
+————————————————————————————
+58.What is sandbox?
+-> Sandbox provide strong defense against damage from malicious code. It can provide users with a safe computing environment, without having to worry about their data and personal information being stolen.
+-> Sandbox is an access control technology provided i OS X, perform at the kernel level.The sandbox restrict each application that it can only read it own file and must get user permission for access to features like location, camera, microphone….
+————————————————————————————
+59.What is Controller Object?
+-> The controller object is as the intermediary between the application’s view object and model objects. 
+It control process interact between View and Model in design pattern Model - View - Controller. Besides,  controller object can also perform set-up and coordinating tasks for an application and manage the life cycles of other objects.
+————————————————————————————
+60.What is Wildcard App IDs?
+-> When creating provisioning profiles, there are 2 types of App IDs: Wildcard App ID and Explicit App IDs. Wildcard App IDs are recommended for most iOS Development because single Wildcard App ID can be used to build and install most applications. Wildcard App IDs are created by entering an asterisk in the identifier portion of your app ID. Example: ABCDE12345.* (ABCDE12345 is the Bundle Seed ID, generated by Apple).
+————————————————————————————
+61.What is categories in iOS?
+-> Category help you can add methods to an existing class, without subclass.
+————————————————————————————
+62.What is Delegation in iOS?
+-> Delegation is a simple and powerful pattern, meaning one object in program perform on behalf of or in coordination with other object.
+- The delegating object keeps a reference to the other object, and at the appropriate time sends a message to it. The main value of delegation is that is allows you to easily customize the behavior of several objects in one central object.
+————————————————————————————
+63.How can we achieve singleton pattern in iOS?
+-> Singleton classes are an important concept, which is an extremely useful design pattern.This idea is used throughout the iPhone SDK, example, UIApplication has a method called sharedApplication which when called from anywhere will return the UIApplication.
+- How to implement:
+(1). Create static method, which is then initialized once and only once.
+(2). The way we ensure that it’s only created once is by using the dispatch_once method from GCD(Grand Central Dispatch). you can not use GCD.
+————————————————————————————
+64.What are all the difference between categories and subclasses? Why should we go to subclasses?
+-> Categories let you expand the API of existing classes without changing their type.
+Subclasses does same thing but introduces a new type, additionally subclasses let you add state.
+————————————————————————————
+65.What is notification in iOS? how many notification types are there in iOS?
+-> Notification is mechanism keep user informed with timely and relevant content, whether your app is running in the background or inactive. Notification can display a message, play a distinctive sound, or update a badge on your app icon.
+————————————————————————————
+66.What is NSNotificationCenter?
+-> NSNotificationCenter Object provides a mechanism for broadcasting information within a program. An NSNotificationCenter is essentially a notification dispatch table.
+-> Different NSNotificationCenter and Delegate
+- NSNotificationCenter: is used to broadcast message to possibly several recipients unknown from the sender.
+- Delegation: is used to send message to a single known recipient acting on behalf of the sender.
+————————————————————————————
+67.What are blocks?  What does the __block keyword do?
+-> Block is defined like function. but block, you can use like parameter in method. and to declare block, you have to use caret (^).
+-> __block keyword is used declare variable, which can modify in block.
+————————————————————————————
+68.What usually (should) happens in a view controller when your app gets a low memory warning? 
+-> when your app gets a low memory warning, in the view controller, didReceiveMemoryWarning method was called.
+————————————————————————————
+69.What is the output binary format? Explain .app structure.
+-> Output binary format is application bundle. Application bundle are one of most common type of bundle created by developers.
+-> .app is application bundle. Types of files in an application bundle: info.plist, executable, Resource file, Other support file such as framework, plugin, document template…
+————————————————————————————
+70.What are the CPU architectures supported by iOS devices?
+-> -> When building iOS app, It allows you to choose to build for different CPU Architectures, depending on the target devices and operating system version you wish to support.
+In iOS supports three architectures for device deployment:
+- arm64 is the current 64-bit ARM CPU architecture, as used in the iPhone 5S and 6, and the iPad Air and later with the A7 and later chip.
+- arm7s, being used in Apple’s A6 and A6X chip on iPhone5, iPhone 5C and iPad4.
+- armv7, an older variation of the 32-bit ARM CPU, as used in the A5 and earlier.
+————————————————————————————
+71.What iOS version onwards ARC can be used?
+-> Xcode 4.2 with iOS5
+————————————————————————————
+72.Can we support same application for iPhone3GS and iPhone5? Why not?
+-> You can’t. Because curently, Apple just support iPhone 4s and later. 
+————————————————————————————
+73.Can I write some C++ function in same .m file? Will it compile? If no, what changes should I do to compile it?
+-> you can write C++ function in .m file but it don’t compile. You should change .m to .mm file. It will compile.
+————————————————————————————
+74. What are the types of iOS binaries you can create using XCode? 
+(.app, .ipa, .a, .framework)
+-> .app: Application bundle
+-> .framework: framework bundle
+
+————————————————————————————
+75.Can a static library (.a) contain resources like images, sound files etc?
+-> No. library projects contain the resources that the library code uses - such as image files or xib file BUT static library not include those resources.
+————————————————————————————
+76.What is responder chain?
+-> The responder chain allows responder objects to transfer responsibility for handling an event or action message to other objects in the app.
+If an object in responder chain cannot handle the event or action, it passes the message to the next responder in the chain. The message travels up the chain, toward higher-level objects, until it is handled. If it isn’t handled, the app discards it.
+The responder chain is used in all of the following:
+- Touch event
+- Motion event: shake-motion
+- Remote control event
+- Action message
+- Editing-menu message
+- Text editing
+
+
+Hierarchy:
+Initial view -> View -> ViewController -> View -> ViewController -> Window -> Application.
+————————————————————————————
+77.The hierarchy of UIButton.
+-> NSObject -> UIResponder -> UIView -> UIControl -> UIButton
+————————————————————————————
+78.Why create a custom view?
+-> Use xib to create custom view to modify, custom outlet in UI better.
+————————————————————————————
+79.What are lifecycle events of UIViewController?
+-> LoadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisAppear -> viewDidDisAppear.
+————————————————————————————
+80.Why do we override drawRect: method?
+-> By default, drawRect: does nothing, but UIView subclass override this method to perform custom drawing.
+————————————————————————————
+81.What are layers?
+-> There are 4 layers in iOS:
+- Cocoa Touch: contains key frameworks for building iOS apps. These frameworks define the appearance of your app. They also provide the basic app infrastructure and support for key technologies such as multitasking, touch-based input, push notifications, and many high-level system services.
+- Media layer: contains the graphics, audio and video technologies you use to implement multimedia experiences in your apps.
+- Core Services layer: contains fundamental system services for apps. 2 primary frameworks in layer is Core Foundation and Foundation frameworks, which define the basic apps use. This layer also contains frameworks support features such as location, iCloud, social media and networking.
+- Core OS layer: contains the low-level features.  
+————————————————————————————
+82.What is NSUserDefaults? What type of data can we store there?
+-> NSUserDefaults is the way store database or a variable temporarily. 
+-> NSUserDefaults can save objects from the following class types:
+- NSData
+- NSString
+- NSNumber
+- NSDate
+- NSArray
+- NSDictionary.
+————————————————————————————
+83.How do you check if your code has memory leaks?
+-> You can check memory leak by use Xcode Instrument, choose leak.
+————————————————————————————
+84.Concepts of notification center, local and remote notifications.
+-> NSNotificationCenter object provides a mechanism for broadcasting information within a program.
+
+————————————————————————————
+85.UITableView cell reuse. How to get it working (w/ or w/o XIB)? How would you implement reuse on a UIScrollView?
+-> In UITableView, to reuse cell, you have create one cell and assign cellIdentify for this cell, after that you have to call delegate CellForRowAtIndexPath to handle this cell.
+-> UIScrollView, you create one cell, assign identify for cell. Then call delegate handle reuse Cell at index path.
+————————————————————————————
+86.How do you setup/initialise a core data stack in your application? Is this activity performed on main thread? If not, why?
+-> Core data stack is the heart of Core Data. Core data stack is a collection of framework objects that are accessed as part of the initialization of Core Data and that mediate (trung gian) between the objects in your application and external data stores. 
+The stack consists of three primary objects: 
+(1) the managed object context (NSManagedObjectContext)
+(2) the persistent store coordinator (NSPersistentStoreCoordinator)
+(3) the managed object model (NSManagedObjectModel)
+
+- YOU INITIALIZE THE CORE DATA STACK BEFORE ACCESSING YOUR APPLICATION DATA.
+————————————————————————————
+87.What is NSPersistentStoreCoordinator? What duties does it perform?
+->
+————————————————————————————
+88.What is NSPersistentStore? Is it thread safe?
+————————————————————————————
+89.What is NSManagedObjectContext? What are the different concurrency types? Explain them.
+————————————————————————————
+90.What is difference between performBlock: and performBlockAndWait:?
+————————————————————————————
+91.What performance issues can you face when using CoreData?
+————————————————————————————
+92.How to implement "load more" using NSFetchedResultsController? (Hint: Set fetch offset and fetch limit on the NSFetchRequest of the controller, change the request to fetch more results)
+————————————————————————————
+93.What are the different delete rules that a relationship can have? Which one takes ownership?
+————————————————————————————
+94.In NSFetchRequest can we fetch only a selective few attributes of an entity? How?
+————————————————————————————
+95.What is Cococa and cocoa touch?
+————————————————————————————
+96.What is Objective c?
+————————————————————————————
+97. how declare methods in Objective c? and how to call them?
+————————————————————————————
+98. What is property in Objective c?
+————————————————————————————
+99.What is meaning of "copy" keyword?
+————————————————————————————
+100.What is meaning of "readOnly" keyword?
+————————————————————————————
+101.What is meaning of "retain" keyword?
+————————————————————————————
+102.What is meaning of "assign" keyword?
+————————————————————————————
+103.What is difference between "assign" and "retain" keyword?
+————————————————————————————
+104.What compilers apple using ?
+-> In the Xcode 3, apple moving from GCC (GNU Compiler Collection) to LLVM (Low Level Virtual Machine) include Clang front-end parser and LLDB debugger.
+————————————————————————————
+105.What is synchronized() block in objective c? what is the use of that?
+————————————————————————————
+106. What is the "interface" and "implementation"?
+————————————————————————————
+107.What is "private", "Protected" and "Public" ?
+————————————————————————————
+108.How to deal with SQLite database?
+————————————————————————————
+109.What is storyboard? 
+————————————————————————————
+110.What is block in objective c?
+————————————————————————————
+111. How to parse xml? explain in deep.
+————————————————————————————
+112.How to parse JSON? explain in deep.
+————————————————————————————
+113.How to use reusable cell in UITableview?
+————————————————————————————
+114.what is use of NSOperation? how NSOperationque works?
+————————————————————————————
+115.How to send crash report from device?
+————————————————————————————
+116.What is autorealease pool?
+————————————————————————————
+117.Difference between nil and Nil.
+————————————————————————————
+118. How to start a thread? explain in deep.
+————————————————————————————
+119.How to download something from the internet?
+————————————————————————————
+120.what is synchronous web request and asynchronous ?
+————————————————————————————
+121. Difference between sax parser and dom parser ?
+————————————————————————————
+122.Explain stack and heap?
+-> 
+————————————————————————————
+123.What are the ViewController  lifecycle in ios?
+————————————————————————————
+124.Difference between coredata & sqlite?
+————————————————————————————
+125.Steps for using coredata?
+————————————————————————————
+127.Difference between release and autorelease ?
+————————————————————————————
+128.How to start a selector on a background thread
+————————————————————————————
+129.What happens if the methods doesn’t exist
+————————————————————————————
+130.When do you allocate and release memory in a mobile application?
+————————————————————————————
+131.How do you write apps for multiple screen sizes?
+————————————————————————————
+132.What are the design patterns you’ve implemented?
+————————————————————————————
+133.How do you make your app interact with a cloud database?
+————————————————————————————
+134.How do you implement communication between an SSL-based server and the mobile application?
+————————————————————————————
+135.When developing a mobile app, how do you test for stability?
+-> 
+————————————————————————————
+136.What is a Plist file in iOS development?
+-> plist(stand for propertylist) file is a structured text file that contains essential configuration information for a bundled excitable. plist use XML, the root XML node is a dictionary, whose contents are set of keys and values to obtain information about your app and how it is configured. As a result, all bundled executables (plug-ins, frameworks and apps) are expected to have an information property list file.
+————————————————————————————
+137. How many AdBannerView can add to the view? 
+————————————————————————————
+138. How to set minimum money of AD to add to app?
+————————————————————————————
